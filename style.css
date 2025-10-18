@@ -6,12 +6,12 @@
     height: 50px;
     padding: 0;
     border: 1px solid black;
-
+    user-select: none;
 }
 
 .xo-wrap {
     display: flex;
     align-items: stretch;
     flex-wrap: wrap;
-    width: 160px;
+    width: 200px;
 }
