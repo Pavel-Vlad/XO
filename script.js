@@ -4,6 +4,7 @@ window.onload = () => {
 
     xos.forEach((el) => {
         el.addEventListener('click', (event) => {
+            console.log()
             if (click) {
                 event.target.innerText = 'O';
             }
