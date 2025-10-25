@@ -1,17 +1,32 @@
 window.onload = () => {
     let cells = [];
-    let who;
-    do {
-        who = prompt('Кто ходит первым? (ввести X или O - большие английские буквы)');
-    } while (who !== 'X' && who !== 'O')
-
     let xos = document.querySelectorAll('.xo');
-    let click = true;
-    if (who === 'X') {
-        click = false;
-    }
-    console.log(click)
+    let click = true; // true / false
+    let buttonsXO = document.querySelectorAll('.buttons button');
+    let buttons = document.getElementsByClassName('buttons');
+    let xoWrap = document.getElementsByClassName('xo-wrap');
+    let whoPlay = document.getElementById('whoPlay');
+    let layer = document.querySelector('.layer');
 
+    // обработка кнопок выбора кто ходит первым
+    buttonsXO.forEach(
+        (el, index) => {
+            el.addEventListener('click', (event) => {
+                if (el.innerText === 'X') {
+                    click = false;
+                }
+                if (el.innerText === 'O') {
+                    whoPlay.innerText = 'Ходит O'
+                    click = true;
+                }
+                xoWrap[0].classList.remove('hidden');
+                buttons[0].classList.add('hidden');
+                whoPlay.classList.remove('hidden');
+            })
+        }
+    )
+
+    // обработка нажатия клеток игрового поля
     xos.forEach(
         (el, index) => {
             el.addEventListener('click', (event) => {
@@ -19,9 +34,11 @@ window.onload = () => {
                     return;
                 }
                 if (click) {
+                    whoPlay.innerText = 'Ходит X'
                     el.innerText = 'O';
                 }
                 if (!click) {
+                    whoPlay.innerText = 'Ходит O'
                     el.innerText = 'X';
                 }
 
@@ -54,10 +71,12 @@ window.onload = () => {
                 cells[a] === cells[b] &&
                 cells[a] === cells[c]) {
 
-                alert('Победил ' + cells[a] + '!');
+                layer.classList.remove('hidden');
+                //alert('Победил ' + cells[a] + '!');
+                //window.location.reload();
             }
         })
-
-
     }
 }
+
+
