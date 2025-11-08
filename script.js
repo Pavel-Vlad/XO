@@ -1,5 +1,5 @@
 window.onload = () => {
-    let cells = [];
+    let cells = []; // [234,'fwefwe',[0,9,9],'wfwe'] cells[1]
     let xos = document.querySelectorAll('.xo');
     let click = true; // true / false
     let buttonsXO = document.querySelectorAll('.buttons button');
@@ -7,6 +7,13 @@ window.onload = () => {
     let xoWrap = document.getElementsByClassName('xo-wrap');
     let whoPlay = document.getElementById('whoPlay');
     let layer = document.querySelector('.layer');
+    let winner = document.querySelector('.popup span');
+    let popupClose = document.querySelector('.popup-close');
+    let clicksOnCells = 0;
+
+    popupClose.addEventListener('click', () => {
+        window.location.reload();
+    })
 
     // обработка кнопок выбора кто ходит первым
     buttonsXO.forEach(
@@ -45,6 +52,7 @@ window.onload = () => {
                 cells[index] = el.innerText;
                 console.log(cells);
                 click = !click;
+                clicksOnCells = clicksOnCells + 1;
                 whoWin();
             })
         }
@@ -61,6 +69,7 @@ window.onload = () => {
             [0, 4, 8],
             [2, 4, 6]
         ];
+        let win = false;
 
         winLines.forEach((line) => {
             let a = line[0];
@@ -72,10 +81,15 @@ window.onload = () => {
                 cells[a] === cells[c]) {
 
                 layer.classList.remove('hidden');
-                //alert('Победил ' + cells[a] + '!');
-                //window.location.reload();
+                winner.innerText = 'Победил ' + cells[a];
+                win = true;
             }
         })
+
+        if (clicksOnCells === 9 && win !== true) {
+            layer.classList.remove('hidden');
+            winner.innerText = 'Ничья';
+        }
     }
 }
 
